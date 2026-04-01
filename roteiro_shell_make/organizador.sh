@@ -1,32 +1,5 @@
 #!/bin/bash
 
-# verificar se pastas src já existem, se não existem criar
-if [ ! -d "src" ]; then
-    echo "A pasta "src" não existe. Criando agora..."
-    mkdir -p "src"
-else
-    echo "A pasta src já existe."
-fi 
-# Mover arquivos .v para pasta src, se já existir um arquivo com o mesmo nome, renomear o novo arquivo para nome2.v
-for file in *.v; do
-    if [ -f "$file" ]; then
-
-        if [ -f "src/$file" ]; then
-            NOME_BASE="${file%.*}"
-            EXT="v"
-    
-            NOVO_NOME="${NOME_BASE}2.${EXT}"
-    
-            echo "Aviso: $file já existe em scr. Renomeado para $NOVO_NOME"
-            mv "$file" "src/$NOVO_NOME"
-
-        else
-            mv "$file" "src/"
-            echo "$file movido para src"
-        fi
-    fi
-done
-
 # verificar se pastas tb já existem, se não existem criar
 if [ ! -d "tb" ]; then
     echo "A pasta "tb" não existe. Criando agora..."
@@ -50,6 +23,33 @@ for file in *_tb.v; do
         else
             mv "$file" "tb/"
             echo "$file movido para tb"
+        fi
+    fi
+done
+
+# verificar se pastas src já existem, se não existem criar
+if [ ! -d "src" ]; then
+    echo "A pasta "src" não existe. Criando agora..."
+    mkdir -p "src"
+else
+    echo "A pasta src já existe."
+fi 
+# Mover arquivos .v para pasta src, se já existir um arquivo com o mesmo nome, renomear o novo arquivo para nome2.v
+for file in *.v; do
+    if [ -f "$file" ]; then
+
+        if [ -f "src/$file" ]; then
+            NOME_BASE="${file%.*}"
+            EXT="v"
+    
+            NOVO_NOME="${NOME_BASE}2.${EXT}"
+    
+            echo "Aviso: $file já existe em scr. Renomeado para $NOVO_NOME"
+            mv "$file" "src/$NOVO_NOME"
+
+        else
+            mv "$file" "src/"
+            echo "$file movido para src"
         fi
     fi
 done
